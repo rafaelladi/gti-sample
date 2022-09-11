@@ -19,7 +19,7 @@ data class User(
 
 val users = listOf(
     User(1L, "Rafael", "rafael.ldietrich@gmail.com", true, 23),
-    User(2L, "Neves", "nevez@ufpr.br", false, 10),
+    User(2L, "Neves", "neves@ufpr.br", false, 10),
     User(3L, "João", "joao@ufpr.br", false, 20)
 ).associateBy { it.id }
 
@@ -32,7 +32,7 @@ fun Application.configureRouting() {
 
         get("{id}") {
             val id = call.parameters["id"]!!.toLong()
-            val user = users[id] ?: run {
+            val user = fetchUser(id) ?: run {
                 call.respond(HttpStatusCode.NotFound, "User not found for id: $id")
                 throw Exception()
             }
@@ -41,7 +41,7 @@ fun Application.configureRouting() {
 
         get("{id}/points") {
             val id = call.parameters["id"]!!.toLong()
-            val user = users[id] ?: run {
+            val user = fetchUser(id) ?: run {
                 call.respond(HttpStatusCode.NotFound, "User not found for id: $id")
                 throw Exception()
             }
@@ -49,4 +49,11 @@ fun Application.configureRouting() {
             call.respond(user.points)
         }
     }
+}
+
+private fun fetchUser(id: Long): User? {
+    if (id != 0L) {
+        return users[id]
+    }
+    return null
 }
