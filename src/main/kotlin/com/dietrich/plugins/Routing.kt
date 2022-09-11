@@ -52,14 +52,5 @@ fun Application.configureRouting() {
 }
 
 private fun fetchUser(id: Long): User? {
-    if (id != 0L) {
-        return users[id]
-    }
-
-    return null
-}
-
-private fun findActive(active: Boolean = true) {
-    val enum = active
-    users.filterValues { it.active == enum }
+    return users[id]
 }
