@@ -61,5 +61,6 @@ private fun fetchUser(id: Long): User? {
 
 private fun findActive(active: Boolean = true) {
     val enum = active
+
     users.filterValues { it.active == enum }
 }
