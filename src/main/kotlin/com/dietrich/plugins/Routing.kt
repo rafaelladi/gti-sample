@@ -55,5 +55,6 @@ private fun fetchUser(id: Long): User? {
     if (id != 0L) {
         return users[id]
     }
+
     return null
 }
